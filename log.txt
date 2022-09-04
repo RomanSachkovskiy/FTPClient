@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-09-03T21:25:03.151124400Z</date>
+  <millis>1662240303151</millis>
+  <nanos>124400</nanos>
+  <sequence>0</sequence>
+  <logger>FTPClient</logger>
+  <level>INFO</level>
+  <class>FTPClient</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>220 Welcome to the COMP4621 FTP-Server</message>
+</record>
+<record>
+  <date>2022-09-03T21:25:03.213129400Z</date>
+  <millis>1662240303213</millis>
+  <nanos>129400</nanos>
+  <sequence>1</sequence>
+  <logger>FTPClient</logger>
+  <level>INFO</level>
+  <class>FTPClient</class>
+  <method>authorization</method>
+  <thread>1</thread>
+  <message>331 User name okay, need password</message>
+</record>
+<record>
+  <date>2022-09-03T21:25:03.215123300Z</date>
+  <millis>1662240303215</millis>
+  <nanos>123300</nanos>
+  <sequence>2</sequence>
+  <logger>FTPClient</logger>
+  <level>INFO</level>
+  <class>FTPClient</class>
+  <method>authorization</method>
+  <thread>1</thread>
+  <message>230-Welcome to HKUST</message>
+</record>
+<record>
+  <date>2022-09-03T21:25:03.216131Z</date>
+  <millis>1662240303216</millis>
+  <nanos>131000</nanos>
+  <sequence>3</sequence>
+  <logger>FTPClient</logger>
+  <level>INFO</level>
+  <class>FTPClient</class>
+  <method>authorization</method>
+  <thread>1</thread>
+  <message>230 User logged in successfully</message>
+</record>
