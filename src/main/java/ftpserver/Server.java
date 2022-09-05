@@ -1,4 +1,4 @@
-package ftpserver;
+package src.main.java.ftpserver;
 
 import java.io.IOException;
 import java.net.ServerSocket;

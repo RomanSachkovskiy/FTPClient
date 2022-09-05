@@ -1,4 +1,4 @@
-package ftpserver;
+package src.main.java.ftpserver;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

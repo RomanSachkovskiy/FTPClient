@@ -1,4 +1,6 @@
-import ftpclient.FTPClient;
+//package src.test.java.ftpclientTest;
+
+import src.main.java.ftpclient.FTPClient;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -6,6 +8,7 @@ import org.testng.annotations.Test;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,7 +19,7 @@ public class FTPTest {
     FTPClient client;
 
     public FTPTest() throws IOException {
-        client = new FTPClient("qwerty123", "ftpnetwork", "jsTest.txt");
+        client = new FTPClient(Inet4Address.getLocalHost().getHostAddress(), "qwerty123", "ftpnetwork", "jsTest.txt");
         testJson = """
                 {
                 \t"students": [
@@ -48,7 +51,7 @@ public class FTPTest {
     @Test(priority = 1)
     public void testGet() throws IOException {
         String testStr = client.studentInfo("getSt 1");
-        Assert.assertEquals(testStr, "\"Dmitry\"", "Names dont't match!");
+        Assert.assertEquals(testStr, "Dmitry", "Names dont't match!");
     }
 
     @Test(priority = 2)
