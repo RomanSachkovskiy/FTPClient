@@ -1,6 +1,7 @@
 //package src.test.java.ftpclientTest;
 
 import src.main.java.ftpclient.FTPClient;
+import src.main.java.Main;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
