@@ -1,0 +1,2 @@
+main-class: src.test.java.FTPTest
+class-path: bin/ bin/lib/jcommander-1.72.jar bin/lib/testng-7.0.0.jar
