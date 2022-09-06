@@ -2,11 +2,11 @@
 	"students": [
 	 {
 		"id": 1,
-		"name": "Student2"
+		"name": "Student1"
 	 },
 	 {
 		"id": 2,
-		"name": "Student3"
+		"name": "Student2"
 	 },
 	 {
 		"id": 3,

@@ -22,8 +22,13 @@ public class FTPClient {
     private String mod;
     private BufferedReader readSocket;
     private BufferedWriter writeSocket;
+    private boolean test;
 
     public FTPClient(String ip, String login, String password, String filename) throws IOException {
+        this(ip, login, password, filename, false);
+    }
+
+    public FTPClient(String ip, String login, String password, String filename, boolean test) throws IOException {
         this.login = login;
         this.password = password;
         jsonFile = filename;
@@ -32,11 +37,24 @@ public class FTPClient {
         writeSocket = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         log = Logger.getLogger(FTPClient.class.getName());
         LogManager.getLogManager().reset();
-        log.addHandler(new FileHandler("log.txt"));
+        log.addHandler(new FileHandler("log.LOG"));
         log.info(readSocket.readLine());
+        if (test) this.test = true;
     }
 
-    public void authorization(boolean test) throws IOException {
+    public void help() {
+        System.out.println();
+        System.out.println("Select a command:");
+        System.out.println("lstSt\tGet sorted list of students by name");
+        System.out.println("getSt <student's id>\tGet information (name) of student by id");
+        System.out.println("addSt <student's name>\tAdd a new student");
+        System.out.println("delSt <student's id>\tDelete a student by id");
+        System.out.println("quit\tShutdown");
+        System.out.println("help\tShows this message");
+        System.out.println();
+    }
+
+    public void authorization() throws IOException {
         Scanner in = new Scanner(System.in);
         while (!Objects.equals(login, "qwerty123") || !Objects.equals(password, "ftpnetwork")) {
             System.out.println("Not logged in!\nPlease, enter a valid username and password");
@@ -52,8 +70,9 @@ public class FTPClient {
         writeSocket.flush();
         log.info(readSocket.readLine());
         log.info(readSocket.readLine());
-        System.out.println("Please choose mode: passive or active (enter p or a)");
         if (!test) {
+            System.out.println("Authorization is successfull!");
+            System.out.println("Please choose mode: passive or active (enter p or a)");
             mod = in.nextLine();
             if (!Objects.equals(mod, "p") && !mod.equals("a")) mod = "p";
             if (mod.equals("a")) {
@@ -66,9 +85,8 @@ public class FTPClient {
                 dataPort = Integer.parseInt(str);
                 System.out.println("You're in Active mode");
             }
-        }
-        else mod = "p";
-        if (Objects.equals(mod, "p")) System.out.println("You're in Passive mode");
+            if (Objects.equals(mod, "p")) System.out.println("You're in Passive mode");
+        } else mod = "p";
     }
 
     public void downloadFromServer(String message) throws IOException {
@@ -171,9 +189,7 @@ public class FTPClient {
         }
     }
 
-    public ArrayList<String> studentList(String message) throws IOException {
-        String[] splitMessage;
-        splitMessage = message.split(" ", 2);
+    public ArrayList<String> studentList() throws IOException {
         downloadFromServer(jsonFile);
         BufferedReader fr = new BufferedReader(new FileReader(jsonFile));
         String str = null;
@@ -186,36 +202,32 @@ public class FTPClient {
                 lst.add(str.split(": ")[1].replace("\"", "") + " (id: " + id + ")");
         }
         Collections.sort(lst);
-        for (String i: lst) {
-            System.out.println(i);
+        if (!test) {
+            for (String i : lst) {
+                System.out.println(i);
+            }
         }
         return lst;
     }
 
     public String studentInfo(String message) throws IOException {
-        String[] splitMessage;
-        splitMessage = message.split(" ", 2);
         downloadFromServer(jsonFile);
         BufferedReader fr = new BufferedReader(new FileReader(jsonFile));
         String str = null;
-        while ((str = fr.readLine()) != null && !str.contains("\"id\": " + splitMessage[1]));
+        while ((str = fr.readLine()) != null && !str.contains("\"id\": " + message));
         str = fr.readLine().split(": ")[1].replace("\"", "");
-        System.out.println(str);
+        if (!test) System.out.println(str);
         return str;
     }
 
     public void addStudent(String message) throws IOException {
-        String[] splitMessage;
-        splitMessage = message.split(" ", 2);
         downloadFromServer(jsonFile);
-        downloadToServer(jsonFile + " " + splitMessage[1], true, false);
+        downloadToServer(jsonFile + " " + message, true, false);
     }
 
     public void deleteStudent(String message) throws IOException {
-        String[] splitMessage;
-        splitMessage = message.split(" ", 2);
         downloadFromServer(jsonFile);
-        downloadToServer(jsonFile + " " + splitMessage[1], true, true);
+        downloadToServer(jsonFile + " " + message, true, true);
     }
 
     public void disconnect() throws IOException {

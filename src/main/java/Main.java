@@ -6,32 +6,36 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        FTPClient client = new FTPClient(args[0], args[1], args[2], "json.txt");
+        FTPClient client = new FTPClient("localhost", "qwerty123", "ftpnetwork", "json.txt");
         Scanner in = new Scanner(System.in);
         boolean quit = false;
         try {
-            client.authorization(false);
+            client.authorization();
+            client.help();
             String[] splitMessage;
             while (!quit) {
                 System.out.print(">> ");
                 String message = in.nextLine();
                 splitMessage = message.split(" ");
                 switch (splitMessage[0]) {
+                    case "help":
+                        client.help();
+                        break;
                     case "quit":
                         client.disconnect();
                         quit = true;
                         break;
                     case "getSt":
-                        client.studentInfo(message);
+                        client.studentInfo(splitMessage[1]);
                         break;
                     case "lstSt":
-                        client.studentList(message);
+                        client.studentList();
                         break;
                     case "addSt":
-                        client.addStudent(message);
+                        client.addStudent(splitMessage[1]);
                         break;
                     case "delSt":
-                        client.deleteStudent(message);
+                        client.deleteStudent(splitMessage[1]);
                         break;
                     default:
                         System.out.println("Command not found");

@@ -1,8 +1,7 @@
-//package src.test.java.ftpclientTest;
+package src.test.java;
 
 import org.testng.TestNG;
 import src.main.java.ftpclient.FTPClient;
-import src.main.java.Main;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -26,7 +25,7 @@ public class FTPTest {
     FTPClient client;
 
     public FTPTest() throws IOException {
-        client = new FTPClient(Inet4Address.getLocalHost().getHostAddress(), "qwerty123", "ftpnetwork", "jsTest.txt");
+        client = new FTPClient(Inet4Address.getLocalHost().getHostAddress(), "qwerty123", "ftpnetwork", "jsTest.txt", true);
         testJson = "{\n" +
                    "\t\"students\": [\n" +
                    "\t {\n" +
@@ -47,7 +46,7 @@ public class FTPTest {
 
     @BeforeTest
     public void StoreFile() throws IOException {
-        client.authorization(true);
+        client.authorization();
         FileWriter fw = new FileWriter("jsTest.txt");
         fw.write(testJson);
         fw.close();
@@ -56,27 +55,27 @@ public class FTPTest {
 
     @Test(groups = "ftp")
     public void testGet() throws IOException {
-        String testStr = client.studentInfo("getSt 1");
-        Assert.assertEquals(testStr, "Dmitry", "Names dont't match!");
+        String testStr = client.studentInfo("1");
+        Assert.assertEquals(testStr, "Dmitry",
+"Names dont't match!");
     }
-
     @Test(groups = "ftp")
     public void testLst() throws IOException {
-        ArrayList<String> testList = client.studentList("lstSt");
+        ArrayList<String> testList = client.studentList();
         Assert.assertEquals(testList, Arrays.asList("Dmitry (id: 1)", "Shahomirov (id: 3)", "Vasya (id: 2)"), "The lists of students dont't match!");
     }
 
     @Test(groups = "ftp")
     public void testAdd() throws IOException {
-        client.addStudent("addSt Anna");
-        ArrayList<String> testList = client.studentList("lstSt");
+        client.addStudent("Anna");
+        ArrayList<String> testList = client.studentList();
         Assert.assertTrue(testList.contains("Anna (id: 4)"), "Add a student doesn't works!");
     }
 
     @Test(groups = "ftp")
     public void testDelete() throws IOException {
-        client.deleteStudent("delSt 4");
-        ArrayList<String> testList = client.studentList("lstSt");
+        client.deleteStudent("4");
+        ArrayList<String> testList = client.studentList();
         Assert.assertFalse(testList.contains("Anna (id: 4)"), "Delete a student doesn't works!");
     }
 
