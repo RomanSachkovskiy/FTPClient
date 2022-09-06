@@ -1,4 +1,4 @@
-package src.test.java;
+//package src.test.java.ftpclientTest;
 
 import org.testng.TestNG;
 import src.main.java.ftpclient.FTPClient;
@@ -16,35 +16,33 @@ import java.util.Arrays;
 
 public class FTPTest {
 
+    public static void main(String[] args) {
+        TestNG testSuite = new TestNG();
+        testSuite.setTestClasses(new Class[] { FTPTest.class });
+        testSuite.run();
+    }
     private final String testJson;
 
     FTPClient client;
 
     public FTPTest() throws IOException {
         client = new FTPClient(Inet4Address.getLocalHost().getHostAddress(), "qwerty123", "ftpnetwork", "jsTest.txt");
-        testJson = """
-                {
-                \t"students": [
-                \t {
-                \t\t"id": 1,
-                \t\t"name": "Dmitry"
-                \t },
-                \t {
-                \t\t"id": 2,
-                \t\t"name": "Vasya"
-                \t },
-                \t {
-                \t\t"id": 3,
-                \t\t"name": "Shahomirov"
-                \t }
-                \t]
-                }""";
-    }
-
-    public static void main(String[] args) {
-        TestNG testSuite = new TestNG();
-        testSuite.setTestClasses(new Class[] { FTPTest.class });
-        testSuite.run();
+        testJson = "{\n" +
+                   "\t\"students\": [\n" +
+                   "\t {\n" +
+                   "\t\t\"id\": 1,\n" +
+                   "\t\t\"name\": \"Dmitry\"\n" +
+                   "\t },\n" +
+                   "\t {\n" +
+                   "\t\t\"id\": 2,\n" +
+                   "\t\t\"name\": \"Vasya\"\n" +
+                   "\t },\n" +
+                   "\t {\n" +
+                   "\t\t\"id\": 3,\n" +
+                   "\t\t\"name\": \"Shahomirov\"\n" +
+                   "\t }\n" +
+                   "\t]\n" +
+                   "}";
     }
 
     @BeforeTest
