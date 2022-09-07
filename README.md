@@ -25,3 +25,4 @@ jar -cmf manifest/test-manifest.mf FTPTest.jar -C bin .
                    "\t }\n" +
                    "\t]\n" +
                    "}";
+![image](https://user-images.githubusercontent.com/84938597/188894380-ebe6379e-45e6-4de6-bf4e-ff7e353c6842.png)
