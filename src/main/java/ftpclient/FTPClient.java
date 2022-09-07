@@ -228,6 +228,7 @@ public class FTPClient {
     public void addStudent(String message) throws IOException {
         downloadFromServer(jsonFile);
         downloadToServer(jsonFile + " " + message, true, false);
+        if (!test) System.out.println("Add a student " + message + " is successful!");
     }
 
     public void deleteStudent(String message) throws IOException {
@@ -241,6 +242,7 @@ public class FTPClient {
         }
         downloadFromServer(jsonFile);
         downloadToServer(jsonFile + " " + message, true, true);
+        if (!test) System.out.println("Delete a student " + str + " is successful!");
     }
 
     public void disconnect() throws IOException {
