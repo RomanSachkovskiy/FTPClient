@@ -5,15 +5,29 @@
 # Инструкция по сборке проекта
 
 С нуля проект можно собрать с помощью выполнения следующих действий:
- Для сборки клиента и сервера:
-+ Прописать команду для создания class файлов (они будут создаться в директории bin): **javac -sourcepath src/main -d bin src/main/java/ftpclient/*.java src/main/java/ftpserver/*.java src/main/java/Main.java**
-+ Прописать команду для создания JAR файлов: 
-  - для сервера: jar -cmf manifest/server-manifest.mf FTPServer.jar -C bin .
-  - для клиента: jar -cmf manifest/client-manifest.mf FTPClient.jar -C bin .
-2. Для сборки тестов:
-+  Прописать команду для создания class файлов (они будут создаться в директории bin): 
-  - для ОС Windows: **javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/test/java/*.java**
-javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/*.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/*.java
+1. Прописать команду для создания class файлов (они будут создаться в директории bin):
++ для Windows: **javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/*.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/*.java**
++ для Linux: **javac -cp bin/lib/jcommander-1.72.jar:bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/*.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/*.java**
+2. Прописать команду для создания JAR файлов: 
++ для сервера: jar -cmf manifest/server-manifest.mf FTPServer.jar -C bin .
++ для клиента: jar -cmf manifest/client-manifest.mf FTPClient.jar -C bin .
++ для тестов: jar -cmf manifest/test-manifest.mf FTPTest.jar -C bin .
+
+Необходимые JAR файлы для работы проекта уже есть в главном каталоге, поэтому сборку производить необязательно.
+
+# Инструкция по запуску приложения
+
+Для запуска приложения необходимо в главном каталоге прописать команду:
++ для сервера: **java -jar FTPServer.jar**
++ для клиента: **java -jar FTPClient.jar** [ip] [name] [password]
+Приложение поддерживает одного пользователя с параметрами: name - qwerty123, password - ftpnetwork, ip - ip-адрес сервера.
+
+# Инструкция по работе с приложением
+
+После успешной авторизации, клиенту выводится следующее сообщение:
+
+->![image](https://user-images.githubusercontent.com/84938597/188916768-b30569bd-12f0-4dad-a534-d004d263a0bb.png)<-
+
 
 jar -cmf manifest/test-manifest.mf FTPTest.jar -C bin .
 
