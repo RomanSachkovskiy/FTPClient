@@ -13,15 +13,14 @@ public class FTPClient {
     private String login;
     private String password;
     private Socket socket;
-    private String jsonFile;
+    private final String jsonFile;
     private ServerSocket serverSocket;
-    private InputStream is;
     private int dataPort;
-    private Socket clientSocket;
-    private Logger log;
+    private final Socket clientSocket;
+    private final Logger log;
     private String mod;
-    private BufferedReader readSocket;
-    private BufferedWriter writeSocket;
+    private final BufferedReader readSocket;
+    private final BufferedWriter writeSocket;
     private boolean test;
 
     public FTPClient(String ip, String login, String password, String filename) throws IOException {
@@ -33,9 +32,9 @@ public class FTPClient {
         this.password = password;
         jsonFile = filename;
         clientSocket = new Socket(ip, 1025);
-        readSocket = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        writeSocket = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-        log = Logger.getLogger(FTPClient.class.getName());
+        readSocket = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); //для чтения данных с сервера
+        writeSocket = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())); //для передачи данных на сервер
+        log = Logger.getLogger(FTPClient.class.getName()); //для записи данных сервера в лог
         LogManager.getLogManager().reset();
         log.addHandler(new FileHandler("log.LOG"));
         log.info(readSocket.readLine());
@@ -91,8 +90,6 @@ public class FTPClient {
 
     public void downloadFromServer(String message) throws IOException {
         mode();
-        String[] splitMessage;
-        splitMessage = message.split(" ", 2);
         writeSocket.write("RETR " + message + "\n");
         writeSocket.flush();
         log.info(readSocket.readLine());
@@ -146,15 +143,14 @@ public class FTPClient {
         downloadToServer(message, false, false);
     }
 
-    public String delete(String str, String[] splitMessage) throws IOException {
+    public String delete(String str, String[] splitMessage) {
         int ind = str.indexOf(splitMessage[1]);
         while (str.charAt(ind) != ':')
             ind += 1;
         ind += 3;
-        String s = "";
-        char c = str.charAt(ind);
+        StringBuilder s = new StringBuilder();
         while (str.charAt(ind) != '"') {
-            s += str.charAt(ind);
+            s.append(str.charAt(ind));
             ind += 1;
         }
         if (str.charAt(ind + 5) == ',')
@@ -167,7 +163,6 @@ public class FTPClient {
     }
 
     public void mode() throws IOException {
-        Scanner in = new Scanner(System.in);
         if (Objects.equals(mod, "p")) {
             writeSocket.write("PASV" + "\n");
             writeSocket.flush();
@@ -192,7 +187,7 @@ public class FTPClient {
     public ArrayList<String> studentList() throws IOException {
         downloadFromServer(jsonFile);
         BufferedReader fr = new BufferedReader(new FileReader(jsonFile));
-        String str = null;
+        String str;
         ArrayList<String> lst = new ArrayList<String>();
         int id = 0;
         while ((str = fr.readLine()) != null) {
@@ -211,12 +206,22 @@ public class FTPClient {
     }
 
     public String studentInfo(String message) throws IOException {
+        return studentInfo(message, true);
+    }
+
+    public String studentInfo(String message, boolean out) throws IOException {
+        String str;
+        if (!message.matches("[+]?\\d+")) {
+            str = "Error in argument: id must contains only numbers!";
+            if (!test && out) System.out.println(str);
+            return str;
+        }
         downloadFromServer(jsonFile);
         BufferedReader fr = new BufferedReader(new FileReader(jsonFile));
-        String str = null;
         while ((str = fr.readLine()) != null && !str.contains("\"id\": " + message));
-        str = fr.readLine().split(": ")[1].replace("\"", "");
-        if (!test) System.out.println(str);
+        if (str != null ) str = fr.readLine().split(": ")[1].replace("\"", "");
+        else str = "The student was not found";
+        if (!test && out) System.out.println(str);
         return str;
     }
 
@@ -226,6 +231,14 @@ public class FTPClient {
     }
 
     public void deleteStudent(String message) throws IOException {
+        String str = studentInfo(message, false);
+        if (Objects.equals(str, "The student was not found")) {
+            System.out.println("The student was not found, so you can't delete it");
+            return;
+        } else if (Objects.equals(str, "Error in argument: id must contains only numbers!")) {
+            System.out.println(str);
+            return;
+        }
         downloadFromServer(jsonFile);
         downloadToServer(jsonFile + " " + message, true, true);
     }

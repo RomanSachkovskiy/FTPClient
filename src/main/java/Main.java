@@ -6,17 +6,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        FTPClient client = new FTPClient("localhost", "qwerty123", "ftpnetwork", "json.txt");
+        FTPClient client = new FTPClient(args[0], args[1], args[2], "json.txt");
         Scanner in = new Scanner(System.in);
         boolean quit = false;
         try {
             client.authorization();
             client.help();
-            String[] splitMessage;
             while (!quit) {
                 System.out.print(">> ");
                 String message = in.nextLine();
-                splitMessage = message.split(" ");
+                String[] splitMessage = message.split(" ");
                 switch (splitMessage[0]) {
                     case "help":
                         client.help();
@@ -26,15 +25,27 @@ public class Main {
                         quit = true;
                         break;
                     case "getSt":
+                        if (splitMessage.length == 1) {
+                            System.out.println("Enter an argument");
+                            break;
+                        }
                         client.studentInfo(splitMessage[1]);
                         break;
                     case "lstSt":
                         client.studentList();
                         break;
                     case "addSt":
+                        if (splitMessage.length == 1) {
+                            System.out.println("Enter an argument");
+                            break;
+                        }
                         client.addStudent(splitMessage[1]);
                         break;
                     case "delSt":
+                        if (splitMessage.length == 1) {
+                            System.out.println("Enter an argument");
+                            break;
+                        }
                         client.deleteStudent(splitMessage[1]);
                         break;
                     default:
