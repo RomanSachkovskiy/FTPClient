@@ -1,4 +1,5 @@
 # FTPClient
+Клиент для работы с FTP сервером. В качестве сервера было использовано готовое решение, которое находится по ссылке: https://github.com/pReya/ftpServer.git. Данное приложение работает как на ОС Windows, так и на ОС Linux.
 
 javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/*.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/*.java
 
