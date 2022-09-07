@@ -26,7 +26,7 @@
 
 После успешной авторизации, клиенту выводится следующее сообщение:
 
-| ![image](https://user-images.githubusercontent.com/84938597/188916768-b30569bd-12f0-4dad-a534-d004d263a0bb.png)<-
+![image](https://user-images.githubusercontent.com/84938597/188916768-b30569bd-12f0-4dad-a534-d004d263a0bb.png){ width="800" height="600" style="display: block; margin: 0 auto" }
 
 
 jar -cmf manifest/test-manifest.mf FTPTest.jar -C bin .
