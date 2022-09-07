@@ -6,7 +6,7 @@
 
 С нуля проект можно собрать с помощью выполнения следующих действий:
 1. Прописать команду для создания class файлов (они будут создаться в директории bin):
-+ для Windows: **javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpserver/*.java src/main/java/ftpclient/FTPClient.java src/main/java/Main.java src/test/java/*.java**
++ для Windows: **javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/FTPClient.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/FTPTest.java**
 + для Linux: **javac -cp bin/lib/jcommander-1.72.jar:bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/FTPClient.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/*.java**
 2. Прописать команду для создания JAR файлов: 
 + для сервера: jar -cmf manifest/server-manifest.mf FTPServer.jar -C bin .
