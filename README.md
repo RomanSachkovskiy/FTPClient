@@ -9,9 +9,9 @@
 + для Windows: **javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/FTPClient.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/FTPTest.java**
 + для Linux: **javac -cp bin/lib/jcommander-1.72.jar:bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/FTPClient.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/FTPTest.java**
 2. Прописать команду для создания JAR файлов: 
-+ для сервера: jar -cmf manifest/server-manifest.mf FTPServer.jar -C bin .
-+ для клиента: jar -cmf manifest/client-manifest.mf FTPClient.jar -C bin .
-+ для тестов: jar -cmf manifest/test-manifest.mf FTPTest.jar -C bin .
++ для сервера: **jar -cmf manifest/server-manifest.mf FTPServer.jar -C bin .**
++ для клиента: **jar -cmf manifest/client-manifest.mf FTPClient.jar -C bin .**
++ для тестов: **jar -cmf manifest/test-manifest.mf FTPTest.jar -C bin .**
 
 Необходимые JAR файлы для работы проекта уже есть в главном каталоге, поэтому сборку производить необязательно.
 
