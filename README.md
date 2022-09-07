@@ -19,7 +19,7 @@
 
 Для запуска приложения необходимо в главном каталоге прописать команду:
 + для сервера: **java -jar FTPServer.jar**
-+ для клиента: **java -jar FTPClient.jar** [ip] [name] [password]
++ для клиента: **java -jar FTPClient.jar [ip] [name] [password]**
 Приложение поддерживает одного пользователя с параметрами: name - qwerty123, password - ftpnetwork, ip - ip-адрес сервера.
 
 # Инструкция по работе с приложением
