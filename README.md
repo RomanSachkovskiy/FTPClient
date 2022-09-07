@@ -2,10 +2,17 @@
 
 Клиент для работы с FTP сервером. В качестве сервера было использовано готовое решение, которое находится по ссылке: https://github.com/pReya/ftpServer.git. Данное приложение работает как на ОС Windows, так и на ОС Linux.
 
-#Инструкция по сборке проекта
+# Инструкция по сборке проекта
 
-
-
+С нуля проект можно собрать с помощью выполнения следующих действий:
+ Для сборки клиента и сервера:
++ Прописать команду для создания class файлов (они будут создаться в директории bin): **javac -sourcepath src/main -d bin src/main/java/ftpclient/*.java src/main/java/ftpserver/*.java src/main/java/Main.java**
++ Прописать команду для создания JAR файлов: 
+  - для сервера: jar -cmf manifest/server-manifest.mf FTPServer.jar -C bin .
+  - для клиента: jar -cmf manifest/client-manifest.mf FTPClient.jar -C bin .
+2. Для сборки тестов:
++  Прописать команду для создания class файлов (они будут создаться в директории bin): 
+  - для ОС Windows: **javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/test/java/*.java**
 javac -cp bin/lib/jcommander-1.72.jar;bin/lib/testng-7.0.0.jar -sourcepath src/main -d bin src/main/java/ftpclient/*.java src/main/java/ftpserver/*.java src/main/java/Main.java src/test/java/*.java
 
 jar -cmf manifest/test-manifest.mf FTPTest.jar -C bin .
